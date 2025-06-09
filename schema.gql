@@ -1,0 +1,55 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Template {
+  id: String!
+  type: String!
+  name: String!
+  subject: String!
+  body: String!
+  placeholders: [String!]!
+  isHtml: [Boolean!]!
+}
+
+type Query {
+  healthCheck: String!
+  getAllTemplates: [Template!]!
+  getTemplateByType(type: String!): Template
+  getTemplateByKey(key: String!): Template
+}
+
+type Mutation {
+  sendMail(input: SendMailInput!): Boolean!
+  createTemplate(input: CreateTemplateInput!): Template!
+  updateTemplate(id: String!, input: UpdateTemplateInput!): Template!
+  deleteTemplate(id: String!): Boolean!
+}
+
+input SendMailInput {
+  templateType: String!
+  toEmail: String!
+  toName: String!
+  placeholders: [PlaceholderInput!]!
+}
+
+input PlaceholderInput {
+  key: String!
+  value: String!
+}
+
+input CreateTemplateInput {
+  type: String!
+  key: String!
+  subject: String!
+  body: String!
+  placeholders: [String!]!
+}
+
+input UpdateTemplateInput {
+  type: String
+  key: String
+  subject: String
+  body: String
+  placeholders: [String!]
+}
