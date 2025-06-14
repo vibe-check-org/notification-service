@@ -107,36 +107,6 @@ jobs:
           path: dist
           retention-days: 1
 
-  analyze:
-    runs-on: ubuntu-latest
-    needs: build
-    strategy:
-      matrix:
-        node-version: [23.x]
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.node-version }}
-
-      - name: Restore Node.js modules from cache
-        uses: actions/cache@v4
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-node-modules-${{ hashFiles('package-lock.json') }}
-
-      # - name: Lint code
-      #   run: npm run eslint
-
-      # - name: Security audit
-      #   run: npm audit --omit=dev --audit-level=high
-
-      - name: Generate documentation (TypeDoc)
-        run: npm run typedoc
-
 
   package:
     name: 📦 Package Application
