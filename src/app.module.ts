@@ -17,10 +17,12 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { database } from './config/mongo.config.js';
 import { TemplateModule } from './template/template.module.js';
 import { ObservabilityModule } from './observability/observability.module.js';
+import { HealthModule } from './health/health.module.js';
 
 @Module({
   imports: [
     AdminModule,
+    HealthModule,
     DevModule,
     NotificationModule,
     GraphQLModule.forRoot<ApolloFederationDriverConfig>(graphQlModuleOptions2),

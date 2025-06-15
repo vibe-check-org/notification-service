@@ -2,7 +2,6 @@ import { Controller, Get, UseFilters, UseInterceptors } from '@nestjs/common';
 import {
   HealthCheckService,
   MongooseHealthIndicator,
-  HttpHealthIndicator,
   HealthCheck,
 } from '@nestjs/terminus';
 import { KafkaIndicator } from './kafka.indicator.js';
@@ -18,7 +17,6 @@ import type { Connection } from 'mongoose';
 export class HealthController {
   readonly #health: HealthCheckService;
   readonly #mongoose: MongooseHealthIndicator;
-  readonly #http: HttpHealthIndicator;
   readonly #kafka: KafkaIndicator;
   readonly #conn: Connection;
 
@@ -26,13 +24,11 @@ export class HealthController {
     @InjectConnection() conn: Connection,
     health: HealthCheckService,
     mongoose: MongooseHealthIndicator,
-    http: HttpHealthIndicator,
     kafka: KafkaIndicator,
   ) {
     this.#conn = conn;
     this.#health = health;
     this.#mongoose = mongoose;
-    this.#http = http;
     this.#kafka = kafka;
   }
 
@@ -61,9 +57,6 @@ export class HealthController {
     return this.#health.check([
       () => this.#mongoose.pingCheck('mongoDB'),
       () => this.#kafka.isHealthy(),
-      () => this.#http.pingCheck('tempo', process.env.TEMPO_HEALTH_URL!),
-      () =>
-        this.#http.pingCheck('prometheus', process.env.PROMETHEUS_HEALTH_URL!),
     ]);
   }
 }
