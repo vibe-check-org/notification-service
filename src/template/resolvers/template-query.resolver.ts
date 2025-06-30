@@ -21,7 +21,7 @@ export class TemplateQueryResolver {
      * Gibt alle gespeicherten Vorlagen zurück.
      */
     @Query(() => [Template])
-    @Roles({ roles: ['Admin', 'User'] })
+    @Roles({ roles: ['Admin', 'BEWERBER', 'RECRUITER'] })
     async getAllTemplates(): Promise<Template[]> {
         return this.#templateReadService.findAll();
     }
@@ -30,13 +30,13 @@ export class TemplateQueryResolver {
      * Gibt eine Vorlage anhand ihres Typs zurück.
      */
     @Query(() => Template, { nullable: true })
-    @Roles({ roles: ['Admin', 'User'] })
+    @Roles({ roles: ['Admin', 'BEWERBER', 'RECRUITER'] })
     async getTemplateByType(@Args('type') type: string): Promise<Template | null> {
         return this.#templateReadService.findByType(type);
     }
 
     @Query(() => Template, { nullable: true })
-    @Roles({ roles: ['Admin', 'User'] })
+    @Roles({ roles: ['Admin', 'BEWERBER', 'RECRUITER'] })
     getTemplateByKey(@Args('key') key: string): Promise<Template | null> {
         return this.#templateReadService.findByKey(key);
     }

@@ -49,7 +49,7 @@ export class NotificationResolver {
     }
 
     @Query(() => String)
-    @Roles({ roles: ['Admin', 'User'] })
+    @Roles({ roles: ['Admin', 'BEWERBER', 'RECRUITER'] })
     async healthCheck(
         @Context() context: any,
     ) {

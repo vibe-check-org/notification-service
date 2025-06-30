@@ -23,7 +23,7 @@ export class TemplateMutationResolver {
      * Erstellt eine neue Nachrichtenvorlage.
      */
     @Mutation(() => Template)
-    @Roles({ roles: ['Admin', 'User'] })
+    @Roles({ roles: ['Admin', 'BEWERBER', 'RECRUITER'] })
     async createTemplate(
         @Args('input') input: CreateTemplateInput,
     ): Promise<Template> {
@@ -34,7 +34,7 @@ export class TemplateMutationResolver {
      * Aktualisiert eine bestehende Vorlage anhand der ID.
      */
     @Mutation(() => Template)
-    @Roles({ roles: ['Admin', 'User'] })
+    @Roles({ roles: ['Admin', 'BEWERBER', 'RECRUITER'] })
     async updateTemplate(
         @Args('id') id: string,
         @Args('input') input: UpdateTemplateInput,
@@ -46,7 +46,7 @@ export class TemplateMutationResolver {
      * Löscht eine Vorlage anhand der ID.
      */
     @Mutation(() => Boolean)
-    @Roles({ roles: ['Admin', 'User'] })
+    @Roles({ roles: ['Admin', 'BEWERBER', 'RECRUITER'] })
     async deleteTemplate(@Args('id') id: string): Promise<boolean> {
         const deleted = await this.#templateWriteService.deleteTemplate(id);
         return !!deleted;
