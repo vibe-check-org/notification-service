@@ -17,8 +17,13 @@ export function KafkaHandler(handlerName: string): ClassDecorator {
 /**
  * Methoden-Decorator – weist einer Methode eine Liste von Kafka-Topics zu
  */
-export function KafkaEvent(...topics: string[]): MethodDecorator {
-    return (target, propertyKey, descriptor) => {
-        SetMetadata(KAFKA_EVENT_TOPICS, topics)(target, propertyKey, descriptor);
-    };
-}
+// export function KafkaEvent(...topics: string[]): MethodDecorator {
+//     return (target, propertyKey, descriptor) => {
+//         SetMetadata(KAFKA_EVENT_TOPICS, topics)(target, propertyKey, descriptor);
+//     };
+// }
+
+export const KafkaEvent = (eventName: string): ClassDecorator => {
+    return SetMetadata(KAFKA_EVENT_METADATA, eventName);
+};
+  

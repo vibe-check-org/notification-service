@@ -4,9 +4,9 @@
  */
 
 export const KafkaTopics = {
-    customer: {
-        customerCreated: 'notification.customer.created',
-        customerDeleted: 'notification.customer.deleted',
+    user: {
+        created: 'notification.create.user',
+        deleted: 'notification.delete.user',
     },
     system: {
         shutdownAll: 'system.shutdown',

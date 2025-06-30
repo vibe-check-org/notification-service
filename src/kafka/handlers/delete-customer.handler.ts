@@ -6,7 +6,7 @@ import { KafkaTopics } from '../kafka-topic.properties.js';
 import { MailerService } from '../../notification/services/mailer.service.js';
 import { SendMailDTO } from '../../template/models/events/send.event.js';
 
-@KafkaHandler(KafkaTopics.customer.customerDeleted)
+@KafkaHandler(KafkaTopics.user.deleted)
 @Injectable()
 export class DeletedCustomerHandler implements KafkaEventHandler {
     readonly #notificationWriteService: MailerService;

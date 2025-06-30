@@ -40,7 +40,7 @@ export class MailerService {
 
     async onModuleInit(): Promise<void> {
         await this.#kafkaConsumerService.consume(
-            { topics: getKafkaTopicsBy(['customer']), },
+            { topics: getKafkaTopicsBy(['user']), },
         );
 
     }
@@ -77,13 +77,17 @@ export class MailerService {
                     template.isHtml === true
                 );
             } else {
+                const isHtml = template.isHtml === true;
                 const fullName = `${placeholders['lastName'] ?? ''} ${placeholders['firstName'] ?? ''}`.trim() || 'Unbekannter Benutzer';
 
+                this.#logger.debug(`Sende Mail an ${toEmail} mit Betreff "${subject}" und Platzhaltern: %o`, placeholders);
+                this.#logger.debug(`Mail-Body: ${isHtml ? 'HTML' : 'Text'}\n${body}`);
                 await this.#transporter!.sendMail({
                     from: fromEmail,
                     to: `${fullName} <${toEmail}>`,
                     subject,
-                    text: body,
+                    text: isHtml ? convert(body, { wordwrap: 130 }) : body,
+                    ...(isHtml ? { html: body } : {}),
                 });
             }
 
@@ -130,12 +134,19 @@ export class MailerService {
                     template.isHtml === true
                 );
             } else {
+                const isHtml = template.isHtml === true;
+
+                this.#logger.info(`Sende Mail an ${toEmail} mit Betreff "${subject}" und Platzhaltern: %o`, placeholders);
+                this.#logger.info(`Mail-Body: ${isHtml ? 'HTML' : 'Text'}\n${body}`);
+
                 await this.#transporter!.sendMail({
                     from: fromEmail,
                     to: `${toName} <${toEmail}>`,
                     subject,
-                    text: body,
+                    text: isHtml ? convert(body, { wordwrap: 130 }) : body,
+                    ...(isHtml ? { html: body } : {}),
                 });
+
             }
 
             this.#logger

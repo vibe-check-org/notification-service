@@ -50,12 +50,12 @@ if (keycloak !== undefined && keycloak !== null) {
 }
 
 const schema = (keycloak?.schema as string | undefined) ?? 'http';
-const host = (keycloak?.host as string | undefined) ?? 'keycloak';
-const port = (keycloak?.port as number | undefined) ?? 8080;
-const authServerUrl = `${schema}://${host}:${port}/auth`;
+const host = (keycloak?.host as string | undefined) ?? 'localhost';
+const port = (keycloak?.port as number | undefined) ?? 8880;
+const authServerUrl = `${schema}://${host}:${port}`;
 // Keycloak ist in Sicherheits-Bereich (= realms) unterteilt
-const realm = (keycloak?.realm as string | undefined) ?? 'nest';
-const clientId = (keycloak?.clientId as string | undefined) ?? 'nest-client';
+const realm = (keycloak?.realm as string | undefined) ?? 'vibeCheck';
+const clientId = (keycloak?.clientId as string | undefined) ?? 'vibeCheck';
 const tokenValidation =
   (keycloak?.tokenValidation as TokenValidation | undefined) ??
   (TokenValidation.ONLINE as TokenValidation);

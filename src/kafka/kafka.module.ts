@@ -29,10 +29,6 @@ import { ShutdownHandler } from './handlers/shutdown.handler.js';
         VibeprofileCreatedHandler,
         DeletedCustomerHandler,
         ShutdownHandler,
-        // AccountCreatedHandler,
-        // AccountDeletedHandler,
-        // ShoppingCartCreatedHandler,
-        // ShoppingCartDeletedHandler,
     ],
     exports: [KafkaProducerService, KafkaConsumerService],
 })
